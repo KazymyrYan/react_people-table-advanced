@@ -20,8 +20,8 @@ export const PeoplePage = () => {
     .filter(
       person =>
         person.name.toLowerCase().includes(query.toLowerCase()) ||
-        person.motherName?.toLowerCase().includes(query.toLowerCase()) ||
-        person.fatherName?.toLowerCase().includes(query.toLowerCase()),
+        (person.motherName ?? '').toLowerCase().includes(query.toLowerCase()) ||
+        (person.fatherName ?? '').toLowerCase().includes(query.toLowerCase()),
     )
     .filter(
       person =>
@@ -39,7 +39,7 @@ export const PeoplePage = () => {
     let result = 0;
 
     if (sortField === 'name' || sortField === 'sex') {
-      result = a[sortField].localeCompare(b[sortField]);
+      result = String(a[sortField]).localeCompare(b[sortField]);
     } else if (sortField === 'born' || sortField === 'died') {
       result = a[sortField] - b[sortField];
     }

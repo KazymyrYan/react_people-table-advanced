@@ -9,7 +9,11 @@ type Props = {
   people: Person[];
 };
 
-const getParentLink = (parentName: string | null, people: Person[]) => {
+const getParentLink = (
+  parentName: string | null,
+  people: Person[],
+  searchParams: URLSearchParams,
+) => {
   if (!parentName) {
     return '-';
   }
@@ -19,7 +23,10 @@ const getParentLink = (parentName: string | null, people: Person[]) => {
   if (parent) {
     return (
       <Link
-        to={`/people/${parent.slug}`}
+        to={{
+          pathname: `/people/${parent.slug}`,
+          search: searchParams.toString(),
+        }}
         className={classNames({ 'has-text-danger': parent.sex === 'f' })}
       >
         {parent.name}
@@ -140,7 +147,10 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
           >
             <td>
               <Link
-                to={`/people/${person.slug}`}
+                to={{
+                  pathname: `/people/${person.slug}`,
+                  search: searchParams.toString(),
+                }}
                 className={classNames({
                   'has-text-danger': person.sex === 'f',
                 })}
@@ -151,8 +161,8 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
             <td>{person.sex}</td>
             <td>{person.born}</td>
             <td>{person.died}</td>
-            <td>{getParentLink(person.motherName, people)}</td>
-            <td>{getParentLink(person.fatherName, people)}</td>
+            <td>{getParentLink(person.motherName, people, searchParams)}</td>
+            <td>{getParentLink(person.fatherName, people, searchParams)}</td>
           </tr>
         ))}
       </tbody>

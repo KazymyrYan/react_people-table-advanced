@@ -3,7 +3,12 @@ iframe {
 }
 
 .navbar.is-fixed-top {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1000;
+}
+
+body {
+  padding-top: 52px;
 }
