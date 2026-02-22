@@ -2,9 +2,15 @@ import { PeoplePage } from './components/PeoplePage';
 import { Navbar } from './components/Navbar';
 
 import './App.scss';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { HomePage } from './components/HomePage';
 import { NotFoundPage } from './components/NotFoundPage';
+
+const HomeRedirect = () => {
+  const { search } = useLocation();
+
+  return <Navigate to={{ pathname: '/', search }} replace />;
+};
 
 export const App = () => {
   return (
@@ -16,7 +22,7 @@ export const App = () => {
           <Routes>
             <Route index element={<HomePage />} />
 
-            <Route path="home" element={<Navigate to={'/'} replace />} />
+            <Route path="home" element={<HomeRedirect />} />
 
             <Route path="people" element={<PeoplePage />} />
             <Route path="people/:slug" element={<PeoplePage />} />

@@ -39,9 +39,9 @@ export const PeoplePage = () => {
     let result = 0;
 
     if (sortField === 'name' || sortField === 'sex') {
-      result = String(a[sortField]).localeCompare(b[sortField]);
+      result = String(a[sortField]).localeCompare(String(b[sortField]));
     } else if (sortField === 'born' || sortField === 'died') {
-      result = a[sortField] - b[sortField];
+      result = Number(a[sortField]) - Number(b[sortField]);
     }
 
     return sortOrder === 'desc' ? -result : result;
